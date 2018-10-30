@@ -8,8 +8,6 @@
   </div>
 </template>
 
-
-
 <script>
 import QuotaBar from './QuotaBar.vue'
 import QuotaAdd from './QuotaAdd.vue'

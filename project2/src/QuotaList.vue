@@ -1,8 +1,9 @@
 <template>
   <div class='component1'>
-        <div class="quotelist" v-for='q in quotes'>
-        <quota><div class="quota" @click='deleteQuota($event)'>{{q}}</div></quota>
-        </div>
+        <div class="quotelist" v-for='(q,i) in quotes'>
+          <!-- <quota><div class="quota" @click='deleteQuota($event)'>{{q}}</div></quota> -->
+          <quota><div class="quota" @click='deleteQuota(i)'>{{q}}</div></quota>
+          </div>
         <nav aria-label="breadcrumb" class="footer">
         <ol class="breadcrumb">
           <li class="breadcrumb-item active" aria-current="page">To delete quote just click on it</li>
@@ -12,7 +13,7 @@
 </template>
 
 <script>
-import Quota from 'Quota.vue'
+import Quota from './Quota.vue'
 import {eventBus} from './main.js'
 export default{
   components:{
@@ -22,9 +23,10 @@ props:{quotes:{
   default:["Just a quote", "Another quote with fat fat fat fat fat fat body "]
 }},
 methods:{
-  deleteQuota(event){
-    var element=event.currentTarget;
-    this.quotes=this.quotes.filter(quote=>quote!=element.innerHTML)
+  deleteQuota(i){
+    //var element=event.currentTarget;
+    this.quotes.splice(i,1);
+    //this.quotes=this.quotes.filter(quote=>quote!=element.innerHTML)
     eventBus.$emit("QuoteCounter",this.quotes.length);
   }
 },
