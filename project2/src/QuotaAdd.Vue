@@ -1,6 +1,6 @@
 <template>
   <div class='component'>
-    <textarea @keyup.enter="addNewQuote" cols="50" rows="10" id="textArea">
+    <textarea @keyup.enter="addNewQuote" cols="50" rows="10" id="textArea" v-model='quote'>
     </textarea>
     <br>
     <button class="btn btn-success" @click="addNewQuote">Add quote</button>
@@ -12,7 +12,8 @@ import {eventBus} from './main.js'
 export default{
   data:function(){
     return{
-      quotes:0
+      quotes:0,
+      quote:""
     }
   },
   methods:{
@@ -25,12 +26,14 @@ export default{
     },
     addNewQuote()
     { if (this.checkQuotesQuota()==true)
-      {var quote=document.getElementById("textArea").value;
-      console.log(quote);
-      console.log(quote.length);
-      if (quote.length>1 && quote.trim()!='')
-      {eventBus.$emit("addQuote",quote);
-      document.getElementById("textArea").value='';}
+      {//var quote=document.getElementById("textArea").value;
+      console.log(this.quote);
+      console.log(this.quote.length);
+      if (this.quote.length>1 && this.quote.trim()!='')
+      {eventBus.$emit("addQuote",this.quote);
+      // document.getElementById("textArea").value='';
+      this.quote='';
+    }
       else {alert("quote is to small")}}
       else {
         alert("clean your quotes")
